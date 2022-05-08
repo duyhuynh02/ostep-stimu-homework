@@ -154,14 +154,18 @@ the same response times as RR?
 
 6. What happens to response time with SJF as job lengths increase?
 Can you use the simulator to demonstrate the trend?
+Response time, wait time and completion time will be all increase. Its cumulative from (n- 1) job before, then the average time will be increase. 
 
 
 ======================================================================
 7. What happens to response time with RR as quantum lengths increase? Can you write an equation that gives the worst-case response time, given N jobs?
 
+At quantum length increase => the wait time and the turnaround also increase. 
+Given N jobs => quantum + 1 ~ (+2 for all) wait time and turnaround.
 
 
-
+<!-- Check SOLUTION here:
+https://homeostasis.scs.carleton.ca/wiki/index.php/Operating_Systems_2014F:_Assignment_3#:~:text=SJF%20delivers%20the%20same%20response,average%20response%20time%20goes%20up. -->
 
 
 
