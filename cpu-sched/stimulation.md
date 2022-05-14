@@ -1,31 +1,37 @@
-1. 
-Final statistics for FIFO: (length = 200) 
+# Scheduling: The scheduling stimulation
+
+## Homework (Simulation)
+
+
+1. Final statistics for FIFO: (length = 200) 
+```
   Job   0 -- Response: 0.00  Turnaround 169.00  Wait 0.00
   Job   1 -- Response: 169.00  Turnaround 321.00  Wait 169.00
   Job   2 -- Response: 321.00  Turnaround 406.00  Wait 321.00
 
-  Average -- Response: 163.33  Turnaround 298.67  Wait 163.33
+  Average -- Response: 163.33  Turnaround 298.67  Wait 163.33 
+  ```
 
------------------------------------------------------------
 Final statistics for SJF: 
+```
   Job   2 -- Response: 0.00  Turnaround 85.00  Wait 0.00
   Job   1 -- Response: 85.00  Turnaround 237.00  Wait 85.00
   Job   0 -- Response: 237.00  Turnaround 406.00  Wait 237.00
 
   Average -- Response: 107.33  Turnaround 242.67  Wait 107.33
 
------------------------------------------------------------
+```
 
 ==> The response, turnaround, and the wait time for SJF is shorted than the FIFO algorithm. 
 
------------------------------------------------------------
 
-2. (length = 100) 
+(length = 100) 
 Here is the job list, with the run time of each job: 
   Job 0 ( length = 85 )
   Job 1 ( length = 76 )
   Job 2 ( length = 43 )
------------------------------------------------------------
+
+```
 Solution for FIFO:
 Execution trace:
   [ time   0 ] Run job 0 for 85.00 secs ( DONE at 85.00 )
@@ -38,8 +44,9 @@ Final statistics:
   Job   2 -- Response: 161.00  Turnaround 204.00  Wait 161.00
 
   Average -- Response: 82.00  Turnaround 150.00  Wait 82.00
+```
 
------------------------------------------------------------
+```
 Solution for SJF:
 Execution trace:
   [ time   0 ] Run job 2 for 43.00 secs ( DONE at 43.00 )
@@ -52,12 +59,11 @@ Final statistics:
   Job   0 -- Response: 119.00  Turnaround 204.00  Wait 119.00
 
   Average -- Response: 54.00  Turnaround 122.00  Wait 54.00
-
+```
 ==> The response, turnaround, and the wait time still is shorter than the FIFO algorithm. 
 
------------------------------------------------------------
-
-3. (length = 300)
+```
+(length = 300)
 Here is the job list, with the run time of each job: 
   Job 0 ( length = 254 )
   Job 1 ( length = 228 )
@@ -90,9 +96,9 @@ Final statistics:
 
 ======================================================================
 
-3. Now do the same, but also with the RR scheduler and a time-slice
+1. Now do the same, but also with the RR scheduler and a time-slice
 of 1.
-
+```
 For 100:
 Final statistics:
   Job   0 -- Response: 0.00  Turnaround 204.00  Wait 119.00
@@ -116,7 +122,7 @@ Final statistics:
   Job   2 -- Response: 2.00  Turnaround 381.00  Wait 254.00
 
   Average -- Response: 1.00  Turnaround 524.33  Wait 321.33
------
+
 Compare those three:
 100.
 FIFO:    Average -- Response: 82.00  Turnaround 150.00  Wait 82.00
@@ -125,44 +131,41 @@ RR:   Average -- Response: 1.00  Turnaround 176.00  Wait 108.00
 
 => For length = 100, the SJF have the shortest turnaround, and wait time. RR is the longest turn around and wait time.
 
-200. 
 FIFO:   Average -- Response: 163.33  Turnaround 298.67  Wait 163.33
 SJF:   Average -- Response: 107.33  Turnaround 242.67  Wait 107.33
 RR:   Average -- Response: 1.00  Turnaround 350.00  Wait 214.67
 => for length = 200, still the same 
 
-300. 
+ 
 FIFO:   Average -- Response: 107.33  Turnaround 242.67  Wait 107.33
 SJF:    Average -- Response: 160.67  Turnaround 363.67  Wait 160.67
 RR:     Average -- Response: 1.00  Turnaround 524.33  Wait 321.33
+```
 
-
-
-======================================================================
-
-
-4. . For what types of workloads does SJF deliver the same turnaround
-times as FIFO? around 100-200 
-
-======================================================================
+1. For what types of workloads does SJF deliver the same turnaround
+times as FIFO? 
+```
+Around 100-200 
+```
 
 5. For what types of workloads and quantum lengths does SJF deliver
 the same response times as RR?
+```
 => Based on the quantum length of the RR, the longer the same response time as RR will more at the same type. 
-
-======================================================================
+```
 
 6. What happens to response time with SJF as job lengths increase?
 Can you use the simulator to demonstrate the trend?
+```
 Response time, wait time and completion time will be all increase. Its cumulative from (n- 1) job before, then the average time will be increase. 
+```
 
-
-======================================================================
 7. What happens to response time with RR as quantum lengths increase? Can you write an equation that gives the worst-case response time, given N jobs?
 
+```
 At quantum length increase => the wait time and the turnaround also increase. 
 Given N jobs => quantum + 1 ~ (+2 for all) wait time and turnaround.
-
+```
 
 <!-- Check SOLUTION here:
 https://homeostasis.scs.carleton.ca/wiki/index.php/Operating_Systems_2014F:_Assignment_3#:~:text=SJF%20delivers%20the%20same%20response,average%20response%20time%20goes%20up. -->
