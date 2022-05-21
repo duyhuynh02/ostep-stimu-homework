@@ -56,18 +56,19 @@ The bound register value should be 930.
 3. Run with these flags: -s 1 -n 10 -l 100. What is the maximum value that base can be set to, such that the address space still
 fits into physical memory in its entirety?
 ```
-No idea. Will comeback later. 
+PSize - limit = 1024*16 - 100 = 16384 - 100 = 16284
+$ ./relocation.py -s 1 -n 10 -l 100 -b 16284 -c
 ```
 
 4. Run some of the same problems above, but with larger address
 spaces (-a) and physical memories (-p).
 ```
-No idea. Will comeback later. 
+Give anything you want! 
 ```
 
 5. What fraction of randomly-generated virtual addresses are valid,
 as a function of the value of the bounds register? Make a graph
 from running with different random seeds, with limit values ranging from 0 up to the maximum size of the address space.
 ```
-
+Will come back soon
 ```
