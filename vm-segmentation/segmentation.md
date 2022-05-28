@@ -89,6 +89,10 @@ segmentation.py -a 16 -p 128
 -A 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 --b0 ? --l0 ? --b1 ? --l1 ?
 ```sh
+- b0: 0 
+- l0: 2 
+- b1: 104 
+- l1: 2
 ```
 
 4. Assume we want to generate a problem where roughly 90% of the
@@ -96,27 +100,12 @@ randomly-generated virtual addresses are valid (not segmentation
 violations). How should you configure the simulator to do so?
 Which parameters are important to getting this outcome?
 ```sh
+Base on the limit of the segments. 
+Choose the number is smaller than address space / 2 = 16 
+./segmentation.py -a 32 -p 128 -b 0 -l 16 -B 128 -L 16 -c
 ```
 
 5. Can you run the simulator such that no virtual addresses are valid? How? 
-```sh
 ```
-
-```sh
-  -h, --help            show this help message and exit
-  -s SEED, --seed=SEED  the random seed
-  -A ADDRESSES, --addresses=ADDRESSES
-                        a set of comma-separated pages to access; -1 means
-                        randomly generate
-  -a ASIZE, --asize=ASIZE
-                        address space size (e.g., 16, 64k, 32m, 1g)
-  -p PSIZE, --physmem=PSIZE
-                        physical memory size (e.g., 16, 64k, 32m, 1g)
-  -n NUM, --numaddrs=NUM
-                        number of virtual addresses to generate
-  -b BASE0, --b0=BASE0  value of segment 0 base register
-  -l LEN0, --l0=LEN0    value of segment 0 limit register
-  -B BASE1, --b1=BASE1  value of segment 1 base register
-  -L LEN1, --l1=LEN1    value of segment 1 limit register
-  -c                    compute answers for me
+./segmentation.py -a 32 -p 128 -b 0 -l 0 -B 128 -L 0 -c
 ```
