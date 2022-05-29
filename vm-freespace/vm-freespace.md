@@ -129,57 +129,36 @@ time it takes to find a free location for some of the policies. Use
 the different free list orderings (-l ADDRSORT, -l SIZESORT+,
 -l SIZESORT-) to see how the policies and the list orderings interact.
 ```sh
-
+Depend on the size or the address, it sorted as the following order. 
 ```
 
 5. Coalescing of a free list can be quite important. Increase the number
-of random allocations (say to -n 1000). What happens to larger
-allocation requests over time? Run with and without coalescing
-(i.e., without and with the -C flag). What differences in outcome do
-you see? How big is the free list over time in each case? Does the
-ordering of the list matter in this case?
-```sh
+of random allocations (say to -n 1000).
+- What happens to larger allocation requests over time? Run with and without coalescing
+(i.e., without and with the -C flag). What differences in outcome do you see? 
+```sh 
+The freeList become larger over time and will need time to go through all to find the suitable 
+address (allocation) to address. 
+Check the command: ./malloc.py -n 10 -H 0 -p BEST -s 0 -n 1000 -C -c
+```
 
+Does the ordering of the list matter in this case?
+```sh 
+It will depend on the type of policy we choose. 
 ```
 
 6. What happens when you change the percent allocated fraction -P
 to higher than 50? What happens to allocations as it nears 100?
 What about as the percent nears 0?
 ```sh
-
+When change the percent allocated fraction nearly 100: the freeList become small, almost just one freeLIst or none to allocate at a time.
+The opposite when the percent nears 0. 
+./malloc.py -n 10 -H 0 -p BEST -s 0 -n 1000 -P 100 -c
+./malloc.py -n 10 -H 0 -p BEST -s 0 -n 1000 -P 1 -c
 ```
 
 7. What kind of specific requests can you make to generate a highlyfragmented free space? Use the -A flag to create fragmented free
 lists, and see how different policies and options change the organization of the free list
 ```sh
-
-```
-
-```sh
-Options:
-  -h, --help            show this help message and exit
-  -s SEED, --seed=SEED  the random seed
-  -S HEAPSIZE, --size=HEAPSIZE
-                        size of the heap
-  -b BASEADDR, --baseAddr=BASEADDR
-                        base address of heap
-  -H HEADERSIZE, --headerSize=HEADERSIZE
-                        size of the header
-  -a ALIGNMENT, --alignment=ALIGNMENT
-                        align allocated units to size; -1->no align
-  -p POLICY, --policy=POLICY
-                        list search (BEST, WORST, FIRST)
-  -l ORDER, --listOrder=ORDER
-                        list order (ADDRSORT, SIZESORT+, SIZESORT-, INSERT-
-                        FRONT, INSERT-BACK)
-  -C, --coalesce        coalesce the free list?
-  -n OPSNUM, --numOps=OPSNUM
-                        number of random ops to generate
-  -r OPSRANGE, --range=OPSRANGE
-                        max alloc size
-  -P OPSPALLOC, --percentAlloc=OPSPALLOC
-                        percent of ops that are allocs
-  -A OPSLIST, --allocList=OPSLIST
-                        instead of random, list of ops (+10,-0,etc)
-  -c, --compute         compute answers for me
+Anything you want... 
 ```
