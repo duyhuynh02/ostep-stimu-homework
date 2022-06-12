@@ -115,13 +115,13 @@ stored in RAM, in a Linux-like OS studied in class.
 (a) Are the physical addresses of the kernel code/data stored in the page tables of various process
 always the same? (yes/no/cannot say)
 ```sh
-No.
+No. ===> WRONG!!!!
 ```
 > yes, because there is only one copy of kernel code in RAM
 (b) Does the page table of every process have page table entries pointing to the kernel code/data?
 (yes/no/cannot say)
 ```sh
-cannot say. 
+cannot say. ===> WRONG!!!!
 ```
 > yes, because every process needs to run kernel code in kernel mode
 
@@ -139,7 +139,7 @@ array elements will result in a page fault?
 (c) Approximately 75
 (d) Approximately 0.1
 ```sh
-(B)
+(B) ===> WRONG!!!!
 ```
 > (D)
 
@@ -151,7 +151,7 @@ always result in the MMU generating a trap to the OS during address translation?
 (c) Page with valid bit unset
 (d) Page with valid, present, and dirty bits set
 ```sh
-(B)
+(B) ===> WRONG!!!!
 ```
 > (B), (C)
 
@@ -163,7 +163,7 @@ run time
 (d) Memory for the argc, argv arguments to the main function is allocated in the code/data
 section of the executable at compile time
 ```sh
-(A), (D)
+(A), (D) ===> WRONG!!!!
 ```
 > (B)
 
@@ -177,7 +177,7 @@ yet been accessed by the user, and hence not allocated physical memory frames by
 (c) Pages corresponding to unused virtual addresses in the virtual address space of the process
 (d) Pages with high virtual addresses mapping to OS code and data
 ```sh
-(B)
+(B) ===> WRONG!!!!
 ```
 > (A), (B)
 
@@ -190,8 +190,9 @@ this page of the process? Select all outcomes that are possible.
 (c) MMU walks the page table (to translate the address)
 (d) MMU traps to the OS (due to illegal access)
 ```sh
-
+(A), (B) ===> WRONG!!!!
 ```
+> (a), (b), (c), (d)
 
 17. Consider a process P in a Linux-like operating system that implements demand paging using the
 LRU page replacement policy. You are told that the i-th page in the page table of the process has
@@ -201,8 +202,9 @@ the accessed bit set. Which of the following statements is/are true?
 (c) This page is likely to be evicted by the OS page replacement policy in the near future
 (d) This page will always stay in physical memory as long as the process is alive
 ```sh
-
+(d) ===> WRONG!!!!
 ```
+> (b)
 
 18. Which of the following statements is/are true regarding the functions of the OS and MMU in a
 modern computer system?
@@ -214,8 +216,9 @@ time a new process is context switched in by the CPU scheduler
 (d) MMU traps to OS every time it cannot translate an address using the page table available to
 it
 ```sh
-
+(b), (d)
 ```
+> (b), (d)
 
 19. Consider a modern computer system using virtual addressing and translation via MMU. Which of
 the following statements is/are valid advantages of using virtual addressing as opposed to directly
@@ -227,41 +230,47 @@ mapped into the virtual address space of a process.
 (c) Using virtual addressing allows us to hide the fact that user’s memory is allocated noncontiguously, and helps provide a simplified view to the user.
 (d) Memory access using virtual addressing is faster than directly accessing memory using physical addresses.
 ```sh
-
+(b), (c) ===> WRONG!!!!
 ```
+> (a), (b), (c)
 
 20. Consider a process running on a system with a 52-bit CPU (i.e., virtual addresses are 48 bits in
 size). The system has a physical memory of 8GB. The page size in the system is 4KB, and the
 size of a page table entry is 4 bytes. The OS uses hierarchical paging. Which of the following
-statements is/are true? You can assume 2
-10 = 1K, 2
-20 = 1M, and so on.
+statements is/are true? You can assume 2^10 = 1K, 2^20 = 1M, and so on.
 (a) We require a 4-level page table to keep track of the virtual address space of a process.
 (b) We require a 5-level page table to keep track of the virtual address space of a process.
 (c) The most significant 9 bits are used to index into the outermost page directory by the MMU
 during address translation.
 (d) The most significant 40 bits of a virtual address denote the page number, and the least significant 12 bits denote the offset within a page.
 ```sh
-
+...
 ```
+> (a), (d)
 
 21. Consider the following line of code in a function of a process.
 int *x = (int *)malloc(10 * sizeof(int));
 When this function is invoked and executed:
 (a) Where is the memory for the variable x allocated within the memory image of the process?
 (stack/heap)
-Ans: stack
+```sh
+stack 
+```
+> stack 
 (b) Where is the memory for the 10 integer variables allocated within the memory image of the
 process? (stack/heap)
 ```sh
-
+heap 
 ```
+> heap 
 
 22. Consider an OS that is not using a copy-on-write implementation for the fork system call. A
 process P has spawned a child C. Consider a virtual address v that is translated to physical address
 Ap(v) using the page table of P, and to Ac(v) using the page table of C.
 (a) For which virtual addresses v does the relationship Ap(v) = Ac(v) hold?
-Ans: For kernel space addresses, shared libraries and such.
+```sh
+
+```
 (b) For which virtual addresses v does the relationship Ap(v) = Ac(v) not hold?
 ```sh
 
