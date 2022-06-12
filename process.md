@@ -139,7 +139,7 @@ system calls succeed.
 
 (d) One other descendant of P is created.
 
-```
+```sh
 (a) & (d)
 -------------------
     (p0)
@@ -161,7 +161,7 @@ value “n” as an index.
 
 (d) This instruction is always executed by the CPU only in response to interrupts from external
 hardware, and never due to any code executed by the user.
-```
+```sh
 The INT n instruction generates a call to the interrupt or exception handler specified with the destination operand
 => (c) 
 ```
@@ -170,15 +170,16 @@ priorities for processes running in the system. The OS scheduler maintains all r
 in a strict priority queue. When the CPU is free, it extracts the ready process with the highest
 priority (breaking ties arbitrarily), and runs it until the process blocks or terminates. Which of the
 following statements is/are true about this scheduling policy?
-3
 (a) This scheduler is an example of a non-preemptive scheduling policy.
 (b) This scheduling policy can result in the starvation of low priority processes.
 (c) This scheduling policy guarantees fairness across all active processes.
 (d) This scheduling policy guarantees lowest average turnaround time for all processes.
+```sh
+(b)
 ```
-```
+> (a) and (b)
 
-17.  Consider the following scheduling policy implemented by an OS. Every time a process is scheduled, the OS runs the process for a maximum of 10 milliseconds or until the process blocks or
+17.   Consider the following scheduling policy implemented by an OS. Every time a process is scheduled, the OS runs the process for a maximum of 10 milliseconds or until the process blocks or
 terminates itself before 10 milliseconds. Subsequently, the OS moves on to the next ready process
 in the list of processes in a round-robin fashion. Which of the following statements is/are true
 about this scheduling policy?
@@ -187,10 +188,12 @@ about this scheduling policy?
 (c) This scheduling policy can sometimes result in involuntary context switches.
 (d) This scheduling policy prioritizes processes with shorter CPU burst times over processes that
 run for long durations.
+```sh
+(c) (d)
 ```
-```
+> (a) (c)
 
-18.  Consider a process P that needs to save its CPU execution context (values of some CPU registers)
+18.   Consider a process P that needs to save its CPU execution context (values of some CPU registers)
 on some stack when it makes a function call or system call. Which of the following statements
 is/are true?
 (a) During a system call, when transitioning from user mode to kernel mode, the context of the
@@ -198,10 +201,12 @@ process is saved on its kernel stack.
 (b) During a function call in user mode, the context of the process is saved on its user stack.
 (c) During a function call in kernel mode, the context of the process is saved on its user stack.
 (d) During a function call in kernel mode, the context of the process is saved on its kernel stack.
+```sh
+(a), (b), (d)
 ```
-```
-19.  Which of the following statements is/are true regarding how the trap instruction (e.g., int n in x86)
-is invoked when a trap occurs in a system?
+> (a), (b), (d)
+
+19.   Which of the following statements is/are true regarding how the trap instruction (e.g., int n in x86) is invoked when a trap occurs in a system?
 (a) When a user makes a system call, the trap instruction is invoked by the kernel code handling
 the system call
 (b) When a user makes a system call, the trap instruction is invoked by userspace code (e.g., user
@@ -210,16 +215,59 @@ program or a library)
 driver handling the interrupt
 (d) When an external I/O device raises an interrupt signaling the completion of an I/O request,
 the trap instruction is invoked by the user process that raised the I/O request
+```sh
+(a), (d)
 ```
-```
+> (b)
 
-20.  Which of the following statements is/are true about a context switch?
+20.   Which of the following statements is/are true about a context switch?
 (a) A context switch from one process to another will happen every time a process moves from
 user mode to kernel mode
 (b) For preemptive schedulers, a trap of any kind always leads to a context switch
 (c) A context switch will always occur when a process has made a blocking system call, irrespective of whether the scheduler is preemptive or not
 (d) For non-preemptive schedulers, a process that is ready/willing to run will not be context
 switched out
+```sh
+(a), (c)
 ```
+> (c), (d)
+
+21. Consider the following C program. Assume there are no syntax errors and the program executes
+correctly. Assume the fork system calls succeed. What is the output printed to the screen when
+we execute the below program?
+```c        
+void main(argc, argv) {
+  for(int i = 0; i < 4; i++) {
+    int ret = fork();
+    if(ret == 0)
+    printf("child %d\n", i);
+  }
+}
+```
+Answer: 
+```sh
 
 ```
+
+22. Consider a parent process P that has forked a child process C in the program below.
+```c      
+  int a = 5;
+  int fd = open(...) //opening a file
+  int ret = fork();
+  if(ret >0) {
+    close(fd);
+    a = 6;
+    ...
+  }
+  else if(ret==0) {
+    printf("a=%d\n", a);
+    read(fd, something);
+  }
+  ```
+After the new process is forked, suppose that the parent process is scheduled first, before the child
+process. Once the parent resumes after fork, it closes the file descriptor and changes the value of
+a variable as shown above. Assume that the child process is scheduled for the first time only after
+the parent completes these two changes.
+(a) What is the value of the variable a as printed in the child process, when it is scheduled next?
+Explain.
+(b) Will the attempt to read from the file descriptor succeed in the child? Explain.
