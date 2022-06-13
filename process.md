@@ -246,8 +246,9 @@ void main(argc, argv) {
 ```
 Answer: 
 ```sh
-
+child i will print 2^i from 0 to 3. 
 ```
+> The statement “child i” is printed 2^i times for i=0 to 3
 
 22. Consider a parent process P that has forked a child process C in the program below.
 ```c      
@@ -270,4 +271,83 @@ a variable as shown above. Assume that the child process is scheduled for the fi
 the parent completes these two changes.
 (a) What is the value of the variable a as printed in the child process, when it is scheduled next?
 Explain.
+```sh 
+
+```
 (b) Will the attempt to read from the file descriptor succeed in the child? Explain.
+```sh
+
+```
+
+23. Consider the following pseudocode. Assume all system calls succeed and there are no other errors
+in the code.
+```c
+int ret1 = fork(); //fork1
+int ret2 = fork(); //fork2
+int ret3 = fork(); //fork3
+wait();
+wait();
+wait();
+```
+Let us call the original parent process in this program as P. Draw/describe a family tree of P and
+all its descendents (children, grand children, and so on) that are spawned during the execution of
+this program. Your tree should be rooted at P. Show the spawned descendents as nodes in the tree,
+and connect processes related by the parent-child relationship with an arrow from parent to child.
+Give names of the form C¡number¿ for descendents, where child processes created by fork ”i”
+above should have numbers like ”i1”, ”i2”, and so on. For example, child processes created by
+fork3 above should have names C31, C32, and so on.
+```sh
+
+```
+
+24. Consider a parent process that has forked a child in the code snippet below.
+```c
+int count = 0;
+ret = fork();
+if(ret == 0) {
+  printf("count in child=%d\n", count);
+}
+else {
+  count = 1;
+}
+```
+The parent executes the statement ”count = 1” before the child executes for the first time. Now,
+what is the value of count printed by the code above? Assume that the OS implements a simple
+fork (not a copy-on-write fork).
+```sh
+0 
+```
+> Ans: 0 (the child has its own copy of the variable) 
+
+25. Consider the wait family of system calls (wait, waitpid etc.) provided by Linux. A parent process
+uses some variant of the wait system call to wait for a child that it has forked. Which of the
+following statements is always true when the parent invokes the system call?
+(a) The parent will always block.
+(b) The parent will never block.
+(c) The parent will always block if the child is still running.
+(d) Whether the parent will block or not will depend on the system call variant and the options
+with which it is invoked.
+```sh
+(c) (d)
+```
+> (d)
+
+26. Consider a simple linux shell implementing the command sleep 100. Which of the following
+is an accurate ordered list of system calls invoked by the shell from the time the user enters this
+command to the time the shell comes back and asks the user for the next input?
+(a) wait-exec-fork
+(b) exec-wait-fork
+(c) fork-exec-wait
+(d) wait-fork-exec
+```sh
+(c)
+```
+> (c)
+
+27. Consider a process P1 that forks P2, P2 forks P3, and P3 forks P4. P1 and P2 continue to execute
+while P3 terminates. Now, when P4 terminates, which process must wait for and reap P4?
+```sh
+
+```
+
+
