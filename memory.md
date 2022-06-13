@@ -288,3 +288,76 @@ page tables in your calculations.
 
 ```
 
+24. Consider a simple system running a single process. The size of physical frames and logical
+pages is 16 bytes. The RAM can hold 3 physical frames. The virtual addresses of the process
+are 6 bits in size. The program generates the following 20 virtual address references as it runs
+on the CPU: 0, 1, 20, 2, 20, 21, 32, 31, 0, 60, 0, 0, 16, 1, 17, 18,
+32, 31, 0, 61. (Note: the 6-bit addresses are shown in decimal here.) Assume that the
+physical frames in RAM are initially empty and do not map to any logical page.
+(a) Translate the virtual addresses above to logical page numbers referenced by the process. That
+is, write down the reference string of 20 page numbers corresponding to the virtual address
+accesses above. Assume pages are numbered starting from 0, 1, ...
+(b) Calculate the number of page faults genrated by the accesses above, assuming a FIFO page
+replacement algorithm. You must also correctly point out which page accesses in the reference string shown by you in part (a) are responsible for the page faults.
+(c) Repeat (b) above for the LRU page replacement algorithm.
+(d) What would be the lowest number of page faults achievable in this example, assuming an
+optimal page replacement algorithm were to be used? Repeat (b) above for the optimal
+algorithm.
+```sh
+
+```
+
+25.  Consider a system with only virtual addresses, but no concept of virtual memory or demand paging. Define total memory access time as the time to access code/data from an address in physical
+memory, including the time to resolve the address (via the TLB or page tables) and the actual
+physical memory access itself. When a virtual address is resolved by the TLB, experiments on a
+machine have empirically observed the total memory access time to be (an approximately constant
+value of) th. Similarly, when the virtual address is not in the TLB, the total memory access time
+is observed to be tm. If the average total memory access time of the system (averaged across
+all memory accesses, including TLB hits as well as misses) is observed to be tx, calculate what
+fraction of memory addresses are resolved by the TLB. In other words, derive an expression for
+the TLB hit rate in terms of th, tm, and tx. You may assume tm > th.
+```sh
+
+```
+
+26. 4. Consider a system with a 6 bit virtual address space, and 16 byte pages/frames. The mapping
+from virtual page numbers to physical frame numbers of a process is (0,8), (1,3), (2,11), and
+(3,1). Translate the following virtual addresses to physical addresses. Note that all addresses are
+in decimal. You may write your answer in decimal or binary.
+(a) 20
+(b) 40
+```sh
+
+```
+27. Consider a system with several running processes. The system is running a modern OS that uses
+virtual addresses and demand paging. It has been empirically observed that the memory access
+times in the system under various conditions are: t1 when the logical memory address is found in
+TLB cache, t2 when the address is not in TLB but does not cause a page fault, and t3 when the
+address results in a page fault. This memory access time includes all overheads like page fault
+servicing and logical-to-physical address translation. It has been observed that, on an average,
+10% of the logical address accesses result in a page fault. Further, of the remaining virtual address accesses, two-thirds of them can be translated using the TLB cache, while one-third require
+walking the page tables. Using the information provided above, calculate the average expected
+memory access time in the system in terms of t1,t2, and t3.
+```sh
+
+```
+
+28. Consider a system where each process has a virtual address space of 2
+v bytes. The physical address
+space of the system is 2
+p bytes, and the page size is 2
+k bytes. The size of each page table entry is
+2
+e bytes. The system uses hierarchical paging with l levels of page tables, where the page table
+entries in the last level point to the actual physical pages of the process. Assume l ≥ 2. Let v0
+denote the number of (most significant) bits of the virtual address that are used as an index into
+the outermost page table during address translation.
+(a) What is the number of logical pages of a process?
+(b) What is the number of physical frames in the system?
+(c) What is the number of PTEs that can be stored in a page?
+(d) How many pages are required to store the innermost PTEs?
+(e) Derive an expression for l in terms of v, p, k, and e.
+(f) Derive an expression for v0 in terms of l, v, p, k, and e.
+```sh
+
+```
