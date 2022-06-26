@@ -61,4 +61,97 @@ No, it's still in the sequence of the instructions.
 Yes.
 ```
 
-4. Now, a different program, looping-race-nolock.s, which accesses a shared variable located at address 2000; we’ll call this variable value. Run it with a single thread to confirm your understanding: ./x86.py -p looping-race-nolock.s -t 1 -M 2000 What is value (i.e., at memory address 2000) throughout the run? Use -c to check.
+4. Now, a different program, looping-race-nolock.s, which accesses a shared variable located at address 2000; we’ll call this variable value. Run it with a single thread to confirm your understanding: ./x86.py -p looping-race-nolock.s -t 1 -M 2000.
+What is value (i.e., at memory address 2000) throughout the run? Use -c to check.
+```sh
+ 2000          Thread 0         
+    0   
+    0  1000 mov 2000, %ax
+    0  1001 add $1, %ax
+    1  1002 mov %ax, 2000
+    1  1003 sub  $1, %bx
+    1  1004 test $0, %bx
+    1  1005 jgt .top
+    1  1006 halt
+```
+
+5. Run with multiple iterations/threads: ./x86.py -p looping-race-nolock.s -t 2 -a bx=3 -M 2000 Why does each thread loop three times? What is final value of value?
+```sh
+Because the value of register bx is 3. 
+```
+
+```sh
+ 2000          Thread 0                Thread 1  
+    0   
+    0   1000 mov 2000, %ax
+    0   1001 add $1, %ax
+    1   1002 mov %ax, 2000
+    1   1003 sub  $1, %bx
+    1   1004 test $0, %bx
+    1   1005 jgt .top
+    1   1000 mov 2000, %ax
+    1   1001 add $1, %ax
+    2   1002 mov %ax, 2000
+    2   1003 sub  $1, %bx
+    2   1004 test $0, %bx
+    2   1005 jgt .top
+    2   1000 mov 2000, %ax
+    2   1001 add $1, %ax
+    3   1002 mov %ax, 2000
+    3   1003 sub  $1, %bx
+    3   1004 test $0, %bx
+    3   1005 jgt .top
+    3   1006 halt
+    3   ----- Halt;Switch -----  ----- Halt;Switch -----  
+    3                            1000 mov 2000, %ax
+    3                            1001 add $1, %ax
+    4                            1002 mov %ax, 2000
+    4                            1003 sub  $1, %bx
+    4                            1004 test $0, %bx
+    4                            1005 jgt .top
+    4                            1000 mov 2000, %ax
+    4                            1001 add $1, %ax
+    5                            1002 mov %ax, 2000
+    5                            1003 sub  $1, %bx
+    5                            1004 test $0, %bx
+    5                            1005 jgt .top
+    5                            1000 mov 2000, %ax
+    5                            1001 add $1, %ax
+    6                            1002 mov %ax, 2000
+    6                            1003 sub  $1, %bx
+    6                            1004 test $0, %bx
+    6                            1005 jgt .top
+    6                            1006 halt
+Final value is 6. 
+```
+
+6. Run with random interrupt intervals: ./x86.py -p looping-race-nolock.s -t 2 -M 2000 -i 4 -r -s 0 with different seeds (-s 1, -s 2, etc.) Can you tell by looking at the thread interleaving what the final value of value will be? 
+```sh 
+./x86.py -p looping-race-nolock.s -t 2 -M 2000 -i 4 -r -s 0 => Final value is: 2 
+./x86.py -p looping-race-nolock.s -t 2 -M 2000 -i 4 -r -s 1 => Final value is: 1
+./x86.py -p looping-race-nolock.s -t 2 -M 2000 -i 4 -r -s 2 => Final value is: 2 
+```
+
+   
+Does the timing of the interrupt matter? Where can it safely occur? Where not? In other words, where is the critical section exactly?
+```sh
+Yes.
+It should be long enough for the calculation and move to the register. 
+```
+
+7. Now examine fixed interrupt intervals: ./x86.py -p looping-race-nolock.s -a bx=1 -t 2 -M 2000 -i 1 What will the final value of the shared variable value be? 
+```sh
+./x86.py -p looping-race-nolock.s -a bx=1 -t 2 -M 2000 -i 1  => Final value is 1.
+./x86.py -p looping-race-nolock.s -a bx=1 -t 2 -M 2000 -i 1  => Final value is 1.
+./x86.py -p looping-race-nolock.s -a bx=1 -t 2 -M 2000 -i 1  => Final value is 2.
+```
+
+What about when you change -i 2, -i 3, etc.? For which interrupt intervals does the program give the “correct” answer?
+```
+Interrupt 1 or 2 is the incorrect answer. It will not do the interleaving but go to the race condition.  
+```
+
+8. Run the same for more loops (e.g., set -a bx=100). What interrupt intervals (-i) lead to a correct outcome? Which intervals are surprising?
+```sh
+
+```
