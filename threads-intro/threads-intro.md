@@ -153,5 +153,34 @@ Interrupt 1 or 2 is the incorrect answer. It will not do the interleaving but go
 
 8. Run the same for more loops (e.g., set -a bx=100). What interrupt intervals (-i) lead to a correct outcome? Which intervals are surprising?
 ```sh
+Greater or equal than 3. 
+```
 
+9. One last program: wait-for-me.s. Run: ./x86.py -p wait-for-me.s -a ax=1,ax=0 -R ax -M 2000 This sets the %ax register to 1 for thread 0, and 0 for thread 1, and watches %ax and memory location 2000. How should the code behave? How is the value at location 2000 being used by the threads? What will its final value be?
+```sh
+ 2000      ax          Thread 0                Thread 1         
+    0       1   
+    0       1   1000 test $1, %ax
+    0       1   1001 je .signaller
+    1       1   1006 mov  $1, 2000
+    1       1   1007 halt
+    1       0   ----- Halt;Switch -----  ----- Halt;Switch -----  
+    1       0                            1000 test $1, %ax
+    1       0                            1001 je .signaller
+    1       0                            1002 mov  2000, %cx
+    1       0                            1003 test $1, %cx
+    1       0                            1004 jne .waiter
+    1       0                            1005 halt
+Final value: 1
+```
+
+10. Now switch the inputs: ./x86.py -p wait-for-me.s -a ax=0,ax=1 -R ax -M 2000. 
+How do the threads behave? What is thread 0 doing? How would changing the interrupt interval (e.g., -i 1000, or perhaps to use random intervals) change the trace outcome? 
+```
+Thread 0 is in loop while waitin for thread 1 to change the value of 2000 to 1. 
+Same. 
+```
+Is the program efficiently using the CPU?
+```
+No.
 ```
