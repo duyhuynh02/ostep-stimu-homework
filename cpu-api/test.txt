@@ -1,0 +1,7 @@
+some basic tests for c program.
+Parent writes something.
+Child writes something.
+Child writes something.
+Parent writes something.
+Parent writes something.
+Child writes something.
